@@ -5,56 +5,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GlobalWay DApp</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#0a0a2e">
 </head>
 <body>
     <div id="app">
-        <!-- Language Switcher -->
-        <div class="language-switcher">
-            <button class="lang-btn active" data-lang="en">EN</button>
-            <button class="lang-btn" data-lang="ru">RU</button>
-            <button class="lang-btn" data-lang="ua">UA</button>
-        </div>
+        <!-- Landing Container -->
+        <div id="landing-container">
+            <!-- Language Switcher -->
+            <div class="language-switcher">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="ru">RU</button>
+                <button class="lang-btn" data-lang="ua">UA</button>
+            </div>
 
-        <!-- Planets Container -->
-        <div class="planets-container">
-            <div class="planet" data-planet="club">
-                <div class="planet-image"></div>
-                <div class="planet-name" data-i18n="club.title">Club</div>
+            <!-- Planets Container -->
+            <div class="planets-container">
+                <div class="planet" data-planet="club">
+                    <div class="planet-image"></div>
+                    <div class="planet-name" data-i18n="club.title">Club GlobalWay</div>
+                </div>
+                
+                <div class="planet" data-planet="mission">
+                    <div class="planet-image"></div>
+                    <div class="planet-name" data-i18n="mission.title">Our Mission</div>
+                </div>
+                
+                <div class="planet" data-planet="goals">
+                    <div class="planet-image"></div>
+                    <div class="planet-name" data-i18n="goals.title">Club Goals</div>
+                </div>
+                
+                <div class="planet" data-planet="roadmap">
+                    <div class="planet-image"></div>
+                    <div class="planet-name" data-i18n="roadmap.title">Roadmap</div>
+                </div>
+                
+                <div class="planet" data-planet="projects">
+                    <div class="planet-image"></div>
+                    <div class="planet-name" data-i18n="projects.title">Our Projects</div>
+                </div>
             </div>
-            
-            <div class="planet" data-planet="mission">
-                <div class="planet-image"></div>
-                <div class="planet-name" data-i18n="mission.title">Mission</div>
-            </div>
-            
-            <div class="planet" data-planet="goals">
-                <div class="planet-image"></div>
-                <div class="planet-name" data-i18n="goals.title">Goals</div>
-            </div>
-            
-            <div class="planet" data-planet="roadmap">
-                <div class="planet-image"></div>
-                <div class="planet-name" data-i18n="roadmap.title">Roadmap</div>
-            </div>
-            
-            <div class="planet" data-planet="projects">
-                <div class="planet-image"></div>
-                <div class="planet-name" data-i18n="projects.title">Projects</div>
-            </div>
-        </div>
 
-        <!-- GWT Coin -->
-        <div class="gwt-coin">
-            <div class="gwt-coin-image"></div>
-            <div class="gwt-coin-label">GWT Coin</div>
-        </div>
+            <!-- GWT Coin -->
+            <div class="gwt-coin">
+                <div class="gwt-coin-image"></div>
+                <div class="gwt-coin-label">GWT Coin</div>
+            </div>
 
-        <!-- Enter DApp Button -->
-        <div class="enter-dapp">
-            <button id="enter-dapp-btn" class="enter-btn">
-                <span data-i18n="enterDapp">ENTER DAPP</span>
-            </button>
+            <!-- Enter DApp Button -->
+            <div class="enter-dapp">
+                <button id="enter-dapp-btn" class="enter-btn">
+                    <span data-i18n="enterDapp">ВХІД В DAPP</span>
+                </button>
+            </div>
         </div>
 
         <!-- Modal -->
@@ -69,7 +74,10 @@
         <!-- Dashboard (hidden initially) -->
         <div id="dashboard" class="dashboard" style="display: none;">
             <header class="dashboard-header">
-                <h1>GlobalWay Dashboard</h1>
+                <div class="logo-section">
+                    <img src="assets/images/logo-32x32.png" alt="GlobalWay" class="dashboard-logo">
+                    <h1>GlobalWay Dashboard</h1>
+                </div>
                 <div class="wallet-info">
                     <span id="wallet-address">Not connected</span>
                     <button id="connect-wallet-btn">Connect SafePal</button>
@@ -97,35 +105,136 @@
                             <p id="balance">0 BNB</p>
                         </div>
                         <div class="stat-card">
-                            <h3>Level</h3>
+                            <h3>GWT Tokens</h3>
+                            <p id="gwt-balance">0 GWT</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Current Level</h3>
                             <p id="level">0</p>
                         </div>
                         <div class="stat-card">
+                            <h3>Partners Count</h3>
+                            <p id="partners-count">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Total Earned</h3>
+                            <p id="total-earned">0 BNB</p>
+                        </div>
+                        <div class="stat-card full-width">
                             <h3>Referral Link</h3>
-                            <input type="text" id="referral-link" readonly>
-                            <button onclick="copyReferral()">Copy</button>
+                            <div class="referral-section">
+                                <input type="text" id="referral-link" readonly>
+                                <button onclick="copyReferral()">Copy</button>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <div id="page-partners" class="page">
                     <h2>Partners Program</h2>
-                    <p>12-level partner structure without overflows</p>
+                    <div class="partners-content">
+                        <div class="level-selection">
+                            <h3>Buy Level</h3>
+                            <div class="level-buttons">
+                                <button class="level-btn" onclick="buyLevel(1)">Level 1 - 0.01 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(2)">Level 2 - 0.02 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(3)">Level 3 - 0.04 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(4)">Level 4 - 0.08 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(5)">Level 5 - 0.16 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(6)">Level 6 - 0.32 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(7)">Level 7 - 0.64 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(8)">Level 8 - 1.28 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(9)">Level 9 - 2.56 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(10)">Level 10 - 5.12 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(11)">Level 11 - 10.24 BNB</button>
+                                <button class="level-btn" onclick="buyLevel(12)">Level 12 - 20.48 BNB</button>
+                            </div>
+                        </div>
+                        <div class="partners-tree">
+                            <h3>Your Partners</h3>
+                            <div id="partners-list">Loading...</div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div id="page-matrix" class="page">
-                    <h2>Matrix Program</h2>
-                    <p>Binary 1:2 matrix visualization</p>
+                    <h2>Matrix 2x1 Program</h2>
+                    <div class="matrix-content">
+                        <div class="matrix-levels">
+                            <button class="matrix-level-btn" onclick="showMatrix(1)">Matrix 1</button>
+                            <button class="matrix-level-btn" onclick="showMatrix(2)">Matrix 2</button>
+                            <button class="matrix-level-btn" onclick="showMatrix(3)">Matrix 3</button>
+                        </div>
+                        <div id="matrix-visualization">
+                            <div class="matrix-grid">
+                                <div class="matrix-position">You</div>
+                                <div class="matrix-position empty">Empty</div>
+                                <div class="matrix-position empty">Empty</div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div id="page-tokens" class="page">
-                    <h2>GWT Tokens</h2>
-                    <p>Token trading and management</p>
+                    <h2>GWT Token Trading</h2>
+                    <div class="token-content">
+                        <div class="token-actions">
+                            <div class="token-action-card">
+                                <h3>Buy GWT Tokens</h3>
+                                <input type="number" id="buy-amount" placeholder="Amount in BNB">
+                                <button onclick="buyTokens()">Buy Tokens</button>
+                            </div>
+                            <div class="token-action-card">
+                                <h3>Sell GWT Tokens</h3>
+                                <input type="number" id="sell-amount" placeholder="Amount in GWT">
+                                <button onclick="sellTokens()">Sell Tokens</button>
+                            </div>
+                        </div>
+                        <div class="token-stats">
+                            <h3>Token Statistics</h3>
+                            <div class="token-info">
+                                <p>Current Rate: <span id="token-rate">1 BNB = 1000 GWT</span></p>
+                                <p>Your GWT Balance: <span id="user-gwt-balance">0 GWT</span></p>
+                                <p>Quarterly Payout: <span id="quarterly-payout">0 BNB</span></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
                 <div id="page-projects" class="page">
                     <h2>Ecosystem Projects</h2>
-                    <p>Access to projects based on your level</p>
+                    <div class="projects-grid">
+                        <div class="project-card" data-project="cardgift">
+                            <h3>CardGift</h3>
+                            <p>Gift card marketplace</p>
+                            <button onclick="accessProject('cardgift')">Access</button>
+                        </div>
+                        <div class="project-card" data-project="globaltub">
+                            <h3>GlobalTub</h3>
+                            <p>Video platform</p>
+                            <button onclick="accessProject('globaltub')">Access</button>
+                        </div>
+                        <div class="project-card" data-project="globalmarket">
+                            <h3>GlobalMarket</h3>
+                            <p>Decentralized marketplace</p>
+                            <button onclick="accessProject('globalmarket')">Access</button>
+                        </div>
+                        <div class="project-card" data-project="globalgame">
+                            <h3>GlobalGame</h3>
+                            <p>Gaming platform</p>
+                            <button onclick="accessProject('globalgame')">Access</button>
+                        </div>
+                        <div class="project-card" data-project="globaledu">
+                            <h3>GlobalEdu</h3>
+                            <p>Educational platform</p>
+                            <button onclick="accessProject('globaledu')">Access</button>
+                        </div>
+                        <div class="project-card" data-project="globalbank">
+                            <h3>GlobalBank</h3>
+                            <p>DeFi banking</p>
+                            <button onclick="accessProject('globalbank')">Access</button>
+                        </div>
+                    </div>
                 </div>
             </main>
         </div>
