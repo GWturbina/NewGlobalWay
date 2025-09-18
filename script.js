@@ -9,6 +9,11 @@ class GlobalWayApp {
             balance: 0
         };
         this.userId = null;
+        this.userLevels = [];
+        this.levelPrices = [
+            0, 0.0015, 0.003, 0.006, 0.012, 0.024, 
+            0.048, 0.096, 0.192, 0.384, 0.768, 1.536, 3.072
+        ];
         
         this.init();
     }
@@ -30,7 +35,7 @@ class GlobalWayApp {
             minX: margin,
             maxX: window.innerWidth - margin - 120,
             minY: margin,
-            maxY: window.innerHeight - margin - 200 // Space for button
+            maxY: window.innerHeight - margin - 200
         };
     }
     
@@ -65,7 +70,6 @@ class GlobalWayApp {
                 planet.y += planet.speedY;
                 planet.rotation += planet.rotationSpeed;
                 
-                // Boundary bouncing
                 if (planet.x <= this.boundaries.minX || planet.x >= this.boundaries.maxX) {
                     planet.speedX *= -1;
                     planet.x = Math.max(this.boundaries.minX, Math.min(this.boundaries.maxX, planet.x));
@@ -114,8 +118,8 @@ class GlobalWayApp {
             }
         });
         
-        // Enter DApp
-        document.getElementById('enter-dapp-btn').addEventListener('click', () => {
+        // GWT Coin click to enter DApp
+        document.querySelector('.gwt-coin').addEventListener('click', () => {
             this.enterDapp();
         });
         
@@ -140,7 +144,6 @@ class GlobalWayApp {
     switchLanguage(lang) {
         this.currentLang = lang;
         
-        // Update active button
         document.querySelectorAll('.lang-btn').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.lang === lang);
         });
@@ -189,12 +192,10 @@ class GlobalWayApp {
     }
     
     switchDashboardPage(page) {
-        // Update nav
         document.querySelectorAll('.nav-item').forEach(item => {
             item.classList.toggle('active', item.dataset.page === page);
         });
         
-        // Update pages
         document.querySelectorAll('.page').forEach(p => {
             p.classList.toggle('active', p.id === `page-${page}`);
         });
@@ -211,7 +212,6 @@ class GlobalWayApp {
                     this.wallet.connected = true;
                     this.wallet.address = accounts[0];
                     
-                    // Get balance
                     const balance = await window.ethereum.request({
                         method: 'eth_getBalance',
                         params: [accounts[0], 'latest']
@@ -244,81 +244,122 @@ class GlobalWayApp {
     }
     
     updateDashboard() {
-        // Update user ID
         document.getElementById('user-id').textContent = this.userId || 'Generating...';
         
-        // Update wallet info
         if (this.wallet.connected) {
-            document.getElementById('wallet-address').textContent = 
+            document.getElementById('wallet-address-display').textContent = 
                 `${this.wallet.address.substring(0, 6)}...${this.wallet.address.substring(38)}`;
-            document.getElementById('balance').textContent = 
+            document.getElementById('wallet-balance-display').textContent = 
                 `${this.wallet.balance.toFixed(4)} BNB`;
         }
         
-        // Update referral link
         const referralLink = `${window.location.origin}?ref=${this.userId}`;
         document.getElementById('referral-link').value = referralLink;
     }
+}
+
+// Partner system functions
+function buyLevel(level) {
+    const app = window.globalWayApp;
     
-    // Smart contract integration placeholders
-    async initializeContracts() {
-        // Contract addresses
-        this.contracts = {
-            globalWay: '0x64De05a0c818a925711EA0874FD972Bdc2edb2aA',
-            globalWayStats: '0xEa4F7F9e1c21Ad766B64D07dC9CB137C1b06Dfa4',
-            gwtToken: '0x5Bf1b9edD3914f546AC02cf35CC285E640Cb68Fc'
-        };
+    if (!app.wallet.connected) {
+        alert('Please connect your wallet first');
+        return;
+    }
+    
+    const price = app.levelPrices[level];
+    
+    if (confirm(`Buy Level ${level} for ${price} BNB?`)) {
+        console.log(`Buying level ${level} for ${price} BNB`);
+        alert(`Level ${level} purchase initiated`);
         
-        // Initialize Web3 contracts when wallet is connected
-        if (this.wallet.connected && typeof window.ethereum !== 'undefined') {
-            // Contract ABI and initialization would go here
-            console.log('Contracts ready for integration');
+        // Update user levels
+        if (!app.userLevels.includes(level)) {
+            app.userLevels.push(level);
+            app.updateLevelButtons();
         }
     }
+}
+
+// Update level buttons to show owned levels
+function updateLevelButtons() {
+    const app = window.globalWayApp;
+    const levelButtons = document.querySelectorAll('.level-btn');
     
-    // Partner system methods
-    async checkUserRegistration() {
-        // Check if user is registered in the contract
-        return false; // Placeholder
+    levelButtons.forEach((btn, index) => {
+        const level = index + 1;
+        if (app.userLevels.includes(level)) {
+            btn.classList.add('owned');
+            btn.textContent = btn.textContent.replace('Level', 'Owned Level');
+            btn.disabled = true;
+        }
+    });
+}
+
+// Matrix functions
+function showMatrix(level) {
+    console.log(`Showing matrix level ${level}`);
+    document.querySelector('.matrix-grid').innerHTML = `
+        <div class="matrix-position you">YOU - Level ${level}</div>
+        <div class="matrix-position empty">Empty Slot</div>
+        <div class="matrix-position empty">Empty Slot</div>
+    `;
+}
+
+// Token functions
+function buyTokens() {
+    const amount = document.getElementById('buy-amount').value;
+    if (!amount || amount <= 0) {
+        alert('Please enter valid amount');
+        return;
     }
     
-    async registerUser(sponsorAddress) {
-        // Register user in the smart contract
-        console.log('Registering user with sponsor:', sponsorAddress);
+    if (!window.globalWayApp.wallet.connected) {
+        alert('Please connect your wallet first');
+        return;
     }
     
-    async buyLevel(level) {
-        // Buy level in the smart contract
-        console.log('Buying level:', level);
+    if (confirm(`Buy ${amount * 1000} GWT tokens for ${amount} BNB?`)) {
+        console.log(`Buying ${amount * 1000} GWT for ${amount} BNB`);
+        alert('Token purchase initiated');
+    }
+}
+
+function sellTokens() {
+    const amount = document.getElementById('sell-amount').value;
+    if (!amount || amount <= 0) {
+        alert('Please enter valid amount');
+        return;
     }
     
-    // Token system methods
-    async getTokenBalance() {
-        // Get GWT token balance
-        return 0; // Placeholder
+    if (!window.globalWayApp.wallet.connected) {
+        alert('Please connect your wallet first');
+        return;
     }
     
-    async buyTokens(amount) {
-        // Buy GWT tokens
-        console.log('Buying tokens:', amount);
+    if (confirm(`Sell ${amount} GWT tokens for ${amount / 1000} BNB?`)) {
+        console.log(`Selling ${amount} GWT for ${amount / 1000} BNB`);
+        alert('Token sale initiated');
+    }
+}
+
+// Project access functions
+function accessProject(projectId) {
+    const projects = {
+        cardgift: 'CardGift - Gift Card Marketplace',
+        globaltub: 'GlobalTub - Video Platform',
+        globalmarket: 'GlobalMarket - Decentralized Marketplace',
+        globalgame: 'GlobalGame - Gaming Platform',
+        globaledu: 'GlobalEdu - Educational Platform',
+        globalbank: 'GlobalBank - DeFi Banking'
+    };
+    
+    if (!window.globalWayApp.wallet.connected) {
+        alert('Please connect your wallet first');
+        return;
     }
     
-    async sellTokens(amount) {
-        // Sell GWT tokens
-        console.log('Selling tokens:', amount);
-    }
-    
-    // Matrix system methods
-    async getMatrixData(level) {
-        // Get matrix data for specific level
-        return {}; // Placeholder
-    }
-    
-    // Projects access methods
-    async checkProjectAccess(projectId) {
-        // Check if user has access to specific project
-        return false; // Placeholder
-    }
+    alert(`Accessing ${projects[projectId]}... (Coming Soon)`);
 }
 
 // Utility functions
@@ -340,7 +381,6 @@ const referralId = urlParams.get('ref');
 if (referralId) {
     localStorage.setItem('referral-sponsor', referralId);
     console.log('Referral detected:', referralId);
-    // Clean URL
     window.history.replaceState({}, '', window.location.pathname);
 }
 
@@ -356,12 +396,3 @@ if ('serviceWorker' in navigator) {
             });
     });
 }
-
-// Network detection
-window.addEventListener('online', () => {
-    console.log('Connection restored');
-});
-
-window.addEventListener('offline', () => {
-    console.log('Connection lost - working offline');
-});
