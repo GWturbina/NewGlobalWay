@@ -1,0 +1,21 @@
+{
+  "name": "GlobalWay DApp",
+  "short_name": "GlobalWay",
+  "description": "Decentralized 12-level partner program platform",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a2e",
+  "theme_color": "#FFD700",
+  "icons": [
+    {
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAANCSURBVFiFtZdNaBNBFMd/M5tsNpvNJk1TbWqrVqpVwYNF8WJBQRBB8OBBDyLiwYMHL148ePDgwYMHD4IXwYsXL168ePDgwYsXL4IXwYsXL4IXL4IXwYsXL4IXwYsXL4IXwYsXL4IXwYsXL4IXwYsXL4IXwYsXL4IXwYsXL4IXwYsXL4IXL4IX",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAAdgAAAHYBTnsmCAAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAOFSURBVHic7dxBaBNBFMbxb5JsNpvNJk1TbWqrVqpVwYNF8WJBQRBB8OBBDyLiwYMHL148ePDgwYMHD4IXwYsXL168ePDgwYsXL168ePAiePHixYsXL168ePDgwYsXL4IXwYsXL4IXL4IXwYsXL4IXwYsXL4IXL4IXwYsXL4IXwYsXL148ePDgwYsXL4IXwYsXL4IXL4IX",
+      "sizes": "192x192", 
+      "type": "image/png"
+    }
+  ]
+}
