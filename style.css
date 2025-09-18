@@ -17,32 +17,13 @@
 }
 
 body {
+    font-family: 'Arial', sans-serif;
     background: url('assets/images/background.jpg') center/cover,
                 linear-gradient(135deg, #0a0a2e 0%, #16213e 25%, #0f3460 50%, #16213e 75%, #0a0a2e 100%);
-}
-
-.planet[data-planet="club"] .planet-image {
-    background-image: url('assets/planets/planet-club.png.png');
-}
-
-.planet[data-planet="mission"] .planet-image {
-    background-image: url('assets/planets/planet-mission.png.png');
-}
-
-.planet[data-planet="goals"] .planet-image {
-    background-image: url('assets/planets/planet-goals.png.png');
-}
-
-.planet[data-planet="roadmap"] .planet-image {
-    background-image: url('assets/planets/planet-roadmap.png.png');
-}
-
-.planet[data-planet="projects"] .planet-image {
-    background-image: url('assets/planets/planet-projects.png.png');
-}
-
-.gwt-coin-image {
-    background-image: url('assets/planets/gwt-coin.png.png');
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow: hidden;
+    color: var(--text-white);
 }
 
 /* Language Switcher */
@@ -104,6 +85,8 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 48px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
 }
 
 .planet-name {
@@ -122,33 +105,33 @@ body {
     white-space: nowrap;
 }
 
-/* Planet backgrounds */
+/* Planet backgrounds with correct paths */
 .planet[data-planet="club"] .planet-image {
-    background-image: url('assets/planets/planet-club.png');
+    background-image: url('assets/planets/planet-club.png.png');
     background-color: #FF6B6B;
 }
 
 .planet[data-planet="mission"] .planet-image {
-    background-image: url('assets/planets/planet-mission.png');
+    background-image: url('assets/planets/planet-mission.png.png');
     background-color: #4ECDC4;
 }
 
 .planet[data-planet="goals"] .planet-image {
-    background-image: url('assets/planets/planet-goals.png');
+    background-image: url('assets/planets/planet-goals.png.png');
     background-color: #45B7D1;
 }
 
 .planet[data-planet="roadmap"] .planet-image {
-    background-image: url('assets/planets/planet-roadmap.png');
+    background-image: url('assets/planets/planet-roadmap.png.png');
     background-color: #F7DC6F;
 }
 
 .planet[data-planet="projects"] .planet-image {
-    background-image: url('assets/planets/planet-projects.png');
+    background-image: url('assets/planets/planet-projects.png.png');
     background-color: #BB8FCE;
 }
 
-/* Planet emoji fallbacks */
+/* Planet emoji fallbacks if images don't load */
 .planet[data-planet="club"] .planet-image::before { content: "👥"; }
 .planet[data-planet="mission"] .planet-image::before { content: "🎯"; }
 .planet[data-planet="goals"] .planet-image::before { content: "🏆"; }
@@ -169,7 +152,7 @@ body {
     width: 100px;
     height: 100px;
     border-radius: 50%;
-    background-image: url('assets/planets/gwt-coin.png');
+    background-image: url('assets/planets/gwt-coin.png.png');
     background-size: cover;
     background-position: center;
     background-color: var(--primary-gold);
@@ -292,6 +275,7 @@ body {
 .dashboard {
     background: var(--primary-navy);
     min-height: 100vh;
+    overflow-y: auto;
 }
 
 .dashboard-header {
@@ -301,6 +285,17 @@ body {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid var(--border-gold);
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.dashboard-logo {
+    width: 40px;
+    height: 40px;
 }
 
 .dashboard-header h1 {
@@ -313,6 +308,11 @@ body {
     gap: 15px;
 }
 
+#wallet-address {
+    color: var(--text-white);
+    font-family: monospace;
+}
+
 #connect-wallet-btn {
     background: var(--primary-gold);
     color: var(--primary-navy);
@@ -321,8 +321,19 @@ body {
     border-radius: 20px;
     cursor: pointer;
     font-weight: 600;
+    transition: var(--transition);
 }
 
+#connect-wallet-btn:hover {
+    background: #FFA500;
+}
+
+#connect-wallet-btn:disabled {
+    background: #666;
+    cursor: not-allowed;
+}
+
+/* Dashboard Navigation */
 .dashboard-nav {
     background: rgba(22, 33, 62, 0.8);
     padding: 15px 20px;
@@ -348,6 +359,7 @@ body {
     color: var(--primary-navy);
 }
 
+/* Dashboard Content */
 .dashboard-content {
     padding: 30px;
 }
@@ -360,6 +372,13 @@ body {
     display: block;
 }
 
+.page h2 {
+    color: var(--text-gold);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* Stats Grid */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -372,6 +391,10 @@ body {
     padding: 20px;
     border-radius: 15px;
     border: 1px solid var(--border-gold);
+}
+
+.stat-card.full-width {
+    grid-column: 1 / -1;
 }
 
 .stat-card h3 {
@@ -388,8 +411,236 @@ body {
     width: 100%;
 }
 
+.referral-section {
+    display: flex;
+    gap: 10px;
+}
+
+.referral-section input {
+    flex: 1;
+}
+
+.referral-section button {
+    background: var(--primary-gold);
+    color: var(--primary-navy);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+/* Partners Page */
+.partners-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.level-selection h3, .partners-tree h3 {
+    color: var(--text-gold);
+    margin-bottom: 20px;
+}
+
+.level-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+}
+
+.level-btn {
+    background: var(--bg-dark);
+    color: var(--text-white);
+    border: 1px solid var(--border-gold);
+    padding: 12px 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.level-btn:hover {
+    background: var(--primary-gold);
+    color: var(--primary-navy);
+}
+
+#partners-list {
+    background: var(--bg-dark);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border-gold);
+    min-height: 200px;
+}
+
+/* Matrix Page */
+.matrix-content {
+    text-align: center;
+}
+
+.matrix-levels {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.matrix-level-btn {
+    background: var(--bg-dark);
+    color: var(--text-gold);
+    border: 1px solid var(--border-gold);
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.matrix-level-btn:hover {
+    background: var(--primary-gold);
+    color: var(--primary-navy);
+}
+
+.matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 150px);
+    gap: 20px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.matrix-position {
+    background: var(--bg-dark);
+    border: 2px solid var(--border-gold);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    color: var(--text-white);
+}
+
+.matrix-position.empty {
+    border-style: dashed;
+    opacity: 0.6;
+}
+
+/* Token Page */
+.token-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+}
+
+.token-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.token-action-card {
+    background: var(--bg-dark);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--border-gold);
+}
+
+.token-action-card h3 {
+    color: var(--text-gold);
+    margin-bottom: 15px;
+}
+
+.token-action-card input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid var(--border-gold);
+    color: var(--text-white);
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+.token-action-card button {
+    width: 100%;
+    background: var(--primary-gold);
+    color: var(--primary-navy);
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.token-stats {
+    background: var(--bg-dark);
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid var(--border-gold);
+}
+
+.token-stats h3 {
+    color: var(--text-gold);
+    margin-bottom: 20px;
+}
+
+.token-info p {
+    margin-bottom: 10px;
+    color: var(--text-white);
+}
+
+.token-info span {
+    color: var(--text-gold);
+    font-weight: 600;
+}
+
+/* Projects Page */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.project-card {
+    background: var(--bg-dark);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid var(--border-gold);
+    text-align: center;
+    transition: var(--transition);
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+}
+
+.project-card h3 {
+    color: var(--text-gold);
+    margin-bottom: 15px;
+}
+
+.project-card p {
+    color: var(--text-white);
+    margin-bottom: 20px;
+}
+
+.project-card button {
+    background: var(--primary-gold);
+    color: var(--primary-navy);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.project-card button:hover {
+    background: #FFA500;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
+    
     .planet {
         width: 80px;
         height: 80px;
@@ -421,6 +672,11 @@ body {
         right: 10px;
     }
     
+    .dashboard-header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
     .dashboard-nav {
         padding: 10px;
         gap: 5px;
@@ -435,86 +691,49 @@ body {
         grid-template-columns: 1fr;
         gap: 15px;
     }
-}
-
-// Partner system functions
-function buyLevel(level) {
-    if (!window.globalWayApp.wallet.connected) {
-        alert('Please connect your wallet first');
-        return;
+    
+    .partners-content,
+    .token-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
     }
     
-    const prices = [0, 0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.64, 1.28, 2.56, 5.12, 10.24, 20.48];
-    const price = prices[level];
-    
-    if (confirm(`Buy Level ${level} for ${price} BNB?`)) {
-        console.log(`Buying level ${level} for ${price} BNB`);
-        alert(`Level ${level} purchase initiated`);
-    }
-}
-
-// Matrix functions
-function showMatrix(level) {
-    console.log(`Showing matrix level ${level}`);
-    document.querySelector('.matrix-grid').innerHTML = `
-        <div class="matrix-position">You - Level ${level}</div>
-        <div class="matrix-position empty">Empty</div>
-        <div class="matrix-position empty">Empty</div>
-    `;
-}
-
-// Token functions
-function buyTokens() {
-    const amount = document.getElementById('buy-amount').value;
-    if (!amount || amount <= 0) {
-        alert('Please enter valid amount');
-        return;
+    .matrix-grid {
+        grid-template-columns: repeat(3, 100px);
+        gap: 10px;
     }
     
-    if (!window.globalWayApp.wallet.connected) {
-        alert('Please connect your wallet first');
-        return;
+    .matrix-position {
+        padding: 15px;
+        font-size: 12px;
     }
     
-    if (confirm(`Buy ${amount * 1000} GWT tokens for ${amount} BNB?`)) {
-        console.log(`Buying ${amount * 1000} GWT for ${amount} BNB`);
-        alert('Token purchase initiated');
+    .projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .level-buttons {
+        grid-template-columns: 1fr;
+    }
+    
+    .dashboard-content {
+        padding: 20px;
     }
 }
 
-function sellTokens() {
-    const amount = document.getElementById('sell-amount').value;
-    if (!amount || amount <= 0) {
-        alert('Please enter valid amount');
-        return;
+@media (max-width: 480px) {
+    .modal-content {
+        margin: 5% auto;
+        padding: 20px;
+        width: 95%;
     }
     
-    if (!window.globalWayApp.wallet.connected) {
-        alert('Please connect your wallet first');
-        return;
+    .dashboard-content {
+        padding: 15px;
     }
     
-    if (confirm(`Sell ${amount} GWT tokens for ${amount / 1000} BNB?`)) {
-        console.log(`Selling ${amount} GWT for ${amount / 1000} BNB`);
-        alert('Token sale initiated');
+    .lang-btn {
+        padding: 6px 12px;
+        font-size: 12px;
     }
-}
-
-// Project access functions
-function accessProject(projectId) {
-    const projects = {
-        cardgift: 'CardGift - Gift Card Marketplace',
-        globaltub: 'GlobalTub - Video Platform',
-        globalmarket: 'GlobalMarket - Decentralized Marketplace',
-        globalgame: 'GlobalGame - Gaming Platform',
-        globaledu: 'GlobalEdu - Educational Platform',
-        globalbank: 'GlobalBank - DeFi Banking'
-    };
-    
-    if (!window.globalWayApp.wallet.connected) {
-        alert('Please connect your wallet first');
-        return;
-    }
-    
-    alert(`Accessing ${projects[projectId]}... (Coming Soon)`);
 }
