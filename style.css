@@ -436,3 +436,85 @@ body {
         gap: 15px;
     }
 }
+
+// Partner system functions
+function buyLevel(level) {
+    if (!window.globalWayApp.wallet.connected) {
+        alert('Please connect your wallet first');
+        return;
+    }
+    
+    const prices = [0, 0.01, 0.02, 0.04, 0.08, 0.16, 0.32, 0.64, 1.28, 2.56, 5.12, 10.24, 20.48];
+    const price = prices[level];
+    
+    if (confirm(`Buy Level ${level} for ${price} BNB?`)) {
+        console.log(`Buying level ${level} for ${price} BNB`);
+        alert(`Level ${level} purchase initiated`);
+    }
+}
+
+// Matrix functions
+function showMatrix(level) {
+    console.log(`Showing matrix level ${level}`);
+    document.querySelector('.matrix-grid').innerHTML = `
+        <div class="matrix-position">You - Level ${level}</div>
+        <div class="matrix-position empty">Empty</div>
+        <div class="matrix-position empty">Empty</div>
+    `;
+}
+
+// Token functions
+function buyTokens() {
+    const amount = document.getElementById('buy-amount').value;
+    if (!amount || amount <= 0) {
+        alert('Please enter valid amount');
+        return;
+    }
+    
+    if (!window.globalWayApp.wallet.connected) {
+        alert('Please connect your wallet first');
+        return;
+    }
+    
+    if (confirm(`Buy ${amount * 1000} GWT tokens for ${amount} BNB?`)) {
+        console.log(`Buying ${amount * 1000} GWT for ${amount} BNB`);
+        alert('Token purchase initiated');
+    }
+}
+
+function sellTokens() {
+    const amount = document.getElementById('sell-amount').value;
+    if (!amount || amount <= 0) {
+        alert('Please enter valid amount');
+        return;
+    }
+    
+    if (!window.globalWayApp.wallet.connected) {
+        alert('Please connect your wallet first');
+        return;
+    }
+    
+    if (confirm(`Sell ${amount} GWT tokens for ${amount / 1000} BNB?`)) {
+        console.log(`Selling ${amount} GWT for ${amount / 1000} BNB`);
+        alert('Token sale initiated');
+    }
+}
+
+// Project access functions
+function accessProject(projectId) {
+    const projects = {
+        cardgift: 'CardGift - Gift Card Marketplace',
+        globaltub: 'GlobalTub - Video Platform',
+        globalmarket: 'GlobalMarket - Decentralized Marketplace',
+        globalgame: 'GlobalGame - Gaming Platform',
+        globaledu: 'GlobalEdu - Educational Platform',
+        globalbank: 'GlobalBank - DeFi Banking'
+    };
+    
+    if (!window.globalWayApp.wallet.connected) {
+        alert('Please connect your wallet first');
+        return;
+    }
+    
+    alert(`Accessing ${projects[projectId]}... (Coming Soon)`);
+}
