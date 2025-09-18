@@ -48,17 +48,10 @@
                 </div>
             </div>
 
-            <!-- GWT Coin -->
+            <!-- GWT Coin (CLICK TO ENTER) -->
             <div class="gwt-coin">
                 <div class="gwt-coin-image"></div>
                 <div class="gwt-coin-label">GWT Coin</div>
-            </div>
-
-            <!-- Enter DApp Button -->
-            <div class="enter-dapp">
-                <button id="enter-dapp-btn" class="enter-btn">
-                    <span data-i18n="enterDapp">ВХІД В DAPP</span>
-                </button>
             </div>
         </div>
 
@@ -79,13 +72,13 @@
                     <h1>GlobalWay Dashboard</h1>
                 </div>
                 <div class="wallet-info">
-                    <span id="wallet-address">Not connected</span>
                     <button id="connect-wallet-btn">Connect SafePal</button>
                 </div>
             </header>
             
             <nav class="dashboard-nav">
                 <button class="nav-item active" data-page="overview">Overview</button>
+                <button class="nav-item" data-page="levels">Buy Levels</button>
                 <button class="nav-item" data-page="partners">Partners</button>
                 <button class="nav-item" data-page="matrix">Matrix</button>
                 <button class="nav-item" data-page="tokens">Tokens</button>
@@ -95,14 +88,20 @@
             <main class="dashboard-content">
                 <div id="page-overview" class="page active">
                     <h2>Welcome to GlobalWay</h2>
+                    
+                    <!-- Wallet Display -->
+                    <div class="wallet-display">
+                        <h3>Wallet Information</h3>
+                        <div class="wallet-address" id="wallet-display">
+                            <div>Address: <span id="wallet-address-display">Not connected</span></div>
+                            <div>Balance: <span id="wallet-balance-display">0 BNB</span></div>
+                        </div>
+                    </div>
+                    
                     <div class="stats-grid">
                         <div class="stat-card">
                             <h3>User ID</h3>
                             <p id="user-id">Generating...</p>
-                        </div>
-                        <div class="stat-card">
-                            <h3>Balance</h3>
-                            <p id="balance">0 BNB</p>
                         </div>
                         <div class="stat-card">
                             <h3>GWT Tokens</h3>
@@ -120,6 +119,10 @@
                             <h3>Total Earned</h3>
                             <p id="total-earned">0 BNB</p>
                         </div>
+                        <div class="stat-card">
+                            <h3>Matrix Earnings</h3>
+                            <p id="matrix-earned">0 BNB</p>
+                        </div>
                         <div class="stat-card full-width">
                             <h3>Referral Link</h3>
                             <div class="referral-section">
@@ -130,29 +133,37 @@
                     </div>
                 </div>
                 
-                <div id="page-partners" class="page">
-                    <h2>Partners Program</h2>
-                    <div class="partners-content">
-                        <div class="level-selection">
-                            <h3>Buy Level</h3>
-                            <div class="level-buttons">
-                                <button class="level-btn" onclick="buyLevel(1)">Level 1 - 0.01 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(2)">Level 2 - 0.02 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(3)">Level 3 - 0.04 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(4)">Level 4 - 0.08 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(5)">Level 5 - 0.16 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(6)">Level 6 - 0.32 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(7)">Level 7 - 0.64 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(8)">Level 8 - 1.28 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(9)">Level 9 - 2.56 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(10)">Level 10 - 5.12 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(11)">Level 11 - 10.24 BNB</button>
-                                <button class="level-btn" onclick="buyLevel(12)">Level 12 - 20.48 BNB</button>
-                            </div>
+                <div id="page-levels" class="page">
+                    <h2>Buy Levels</h2>
+                    <div class="level-purchase">
+                        <h3>Partner Program Levels</h3>
+                        <div class="level-buttons">
+                            <button class="level-btn" onclick="buyLevel(1)">Level 1 - 0.0015 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(2)">Level 2 - 0.003 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(3)">Level 3 - 0.006 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(4)">Level 4 - 0.012 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(5)">Level 5 - 0.024 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(6)">Level 6 - 0.048 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(7)">Level 7 - 0.096 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(8)">Level 8 - 0.192 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(9)">Level 9 - 0.384 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(10)">Level 10 - 0.768 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(11)">Level 11 - 1.536 BNB</button>
+                            <button class="level-btn" onclick="buyLevel(12)">Level 12 - 3.072 BNB</button>
                         </div>
+                    </div>
+                </div>
+                
+                <div id="page-partners" class="page">
+                    <h2>Partners Structure</h2>
+                    <div class="partners-content">
                         <div class="partners-tree">
-                            <h3>Your Partners</h3>
-                            <div id="partners-list">Loading...</div>
+                            <h3>Your Partner Network</h3>
+                            <div id="partners-list">
+                                <div style="text-align: center; padding: 40px; color: #ccc;">
+                                    Connect your wallet to view partner structure
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -167,9 +178,9 @@
                         </div>
                         <div id="matrix-visualization">
                             <div class="matrix-grid">
-                                <div class="matrix-position">You</div>
-                                <div class="matrix-position empty">Empty</div>
-                                <div class="matrix-position empty">Empty</div>
+                                <div class="matrix-position you">YOU</div>
+                                <div class="matrix-position empty">Empty Slot</div>
+                                <div class="matrix-position empty">Empty Slot</div>
                             </div>
                         </div>
                     </div>
@@ -223,6 +234,7 @@
                             <h3>GlobalGame</h3>
                             <p>Gaming platform</p>
                             <button onclick="accessProject('globalgame')">Access</button>
+                        </div>
                         </div>
                         <div class="project-card" data-project="globaledu">
                             <h3>GlobalEdu</h3>
