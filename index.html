@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GlobalWay DApp</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="theme-color" content="#0a0a2e">
+</head>
+<body>
+    <div id="app">
+        <!-- Language Switcher -->
+        <div class="language-switcher">
+            <button class="lang-btn active" data-lang="en">EN</button>
+            <button class="lang-btn" data-lang="ru">RU</button>
+            <button class="lang-btn" data-lang="ua">UA</button>
+        </div>
+
+        <!-- Planets Container -->
+        <div class="planets-container">
+            <div class="planet" data-planet="club">
+                <div class="planet-image"></div>
+                <div class="planet-name" data-i18n="club.title">Club</div>
+            </div>
+            
+            <div class="planet" data-planet="mission">
+                <div class="planet-image"></div>
+                <div class="planet-name" data-i18n="mission.title">Mission</div>
+            </div>
+            
+            <div class="planet" data-planet="goals">
+                <div class="planet-image"></div>
+                <div class="planet-name" data-i18n="goals.title">Goals</div>
+            </div>
+            
+            <div class="planet" data-planet="roadmap">
+                <div class="planet-image"></div>
+                <div class="planet-name" data-i18n="roadmap.title">Roadmap</div>
+            </div>
+            
+            <div class="planet" data-planet="projects">
+                <div class="planet-image"></div>
+                <div class="planet-name" data-i18n="projects.title">Projects</div>
+            </div>
+        </div>
+
+        <!-- GWT Coin -->
+        <div class="gwt-coin">
+            <div class="gwt-coin-image"></div>
+            <div class="gwt-coin-label">GWT Coin</div>
+        </div>
+
+        <!-- Enter DApp Button -->
+        <div class="enter-dapp">
+            <button id="enter-dapp-btn" class="enter-btn">
+                <span data-i18n="enterDapp">ENTER DAPP</span>
+            </button>
+        </div>
+
+        <!-- Modal -->
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <h2 id="modal-title"></h2>
+                <p id="modal-text"></p>
+            </div>
+        </div>
+
+        <!-- Dashboard (hidden initially) -->
+        <div id="dashboard" class="dashboard" style="display: none;">
+            <header class="dashboard-header">
+                <h1>GlobalWay Dashboard</h1>
+                <div class="wallet-info">
+                    <span id="wallet-address">Not connected</span>
+                    <button id="connect-wallet-btn">Connect SafePal</button>
+                </div>
+            </header>
+            
+            <nav class="dashboard-nav">
+                <button class="nav-item active" data-page="overview">Overview</button>
+                <button class="nav-item" data-page="partners">Partners</button>
+                <button class="nav-item" data-page="matrix">Matrix</button>
+                <button class="nav-item" data-page="tokens">Tokens</button>
+                <button class="nav-item" data-page="projects">Projects</button>
+            </nav>
+            
+            <main class="dashboard-content">
+                <div id="page-overview" class="page active">
+                    <h2>Welcome to GlobalWay</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>User ID</h3>
+                            <p id="user-id">Generating...</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Balance</h3>
+                            <p id="balance">0 BNB</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Level</h3>
+                            <p id="level">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Referral Link</h3>
+                            <input type="text" id="referral-link" readonly>
+                            <button onclick="copyReferral()">Copy</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="page-partners" class="page">
+                    <h2>Partners Program</h2>
+                    <p>12-level partner structure without overflows</p>
+                </div>
+                
+                <div id="page-matrix" class="page">
+                    <h2>Matrix Program</h2>
+                    <p>Binary 1:2 matrix visualization</p>
+                </div>
+                
+                <div id="page-tokens" class="page">
+                    <h2>GWT Tokens</h2>
+                    <p>Token trading and management</p>
+                </div>
+                
+                <div id="page-projects" class="page">
+                    <h2>Ecosystem Projects</h2>
+                    <p>Access to projects based on your level</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <script src="translations.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
