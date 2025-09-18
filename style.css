@@ -17,13 +17,32 @@
 }
 
 body {
-    font-family: 'Arial', sans-serif;
     background: url('assets/images/background.jpg') center/cover,
                 linear-gradient(135deg, #0a0a2e 0%, #16213e 25%, #0f3460 50%, #16213e 75%, #0a0a2e 100%);
-    background-attachment: fixed;
-    min-height: 100vh;
-    overflow: hidden;
-    color: var(--text-white);
+}
+
+.planet[data-planet="club"] .planet-image {
+    background-image: url('assets/planets/planet-club.png.png');
+}
+
+.planet[data-planet="mission"] .planet-image {
+    background-image: url('assets/planets/planet-mission.png.png');
+}
+
+.planet[data-planet="goals"] .planet-image {
+    background-image: url('assets/planets/planet-goals.png.png');
+}
+
+.planet[data-planet="roadmap"] .planet-image {
+    background-image: url('assets/planets/planet-roadmap.png.png');
+}
+
+.planet[data-planet="projects"] .planet-image {
+    background-image: url('assets/planets/planet-projects.png.png');
+}
+
+.gwt-coin-image {
+    background-image: url('assets/planets/gwt-coin.png.png');
 }
 
 /* Language Switcher */
